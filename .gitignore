@@ -1,0 +1,29 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+myenv/
+env/
+
+# Ignore in all subfolders
+**/venv/
+**/myenv/
+**/env/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# SQLite database files
+*.db
+
+# Instance and media folders (Django/Flask)
+instance/
+static/uploads/
+
+# VS Code settings
+.vscode/

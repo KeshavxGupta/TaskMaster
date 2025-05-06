@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admindashboard.css') }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  />
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</head>
+
+<body>
+  <aside class="sidebar">
+    <div class="logo">
+      <i class="fas fa-tasks"></i>
+      <span>TaskMaster Admin</span>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="sidebar-nav">
+      <ul class="nav-links">
+        <li>
+          <a href="{{ url_for('admin.admindashboard') }}" class="active">
+            <i class="fas fa-home"></i> Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('admin.manage_users') }}">
+            <i class="fas fa-users"></i> Users
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('admin.manage_tasks') }}">
+            <i class="fas fa-tasks"></i> Tasks
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('admin.feedback') }}">
+            <i class="fas fa-comments"></i> Feedback
+          </a>
+        </li>
+      </ul>
+
+      <!-- Bottom Navigation -->
+      <ul class="nav-bottom">
+        <li>
+          <a href="{{ url_for('logout') }}" class="sidebar-btn logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+</body>
+</html>

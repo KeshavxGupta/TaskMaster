@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | TaskMaster</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admindashboard.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</head>
+<body>
+  <!-- Flash Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-messages">
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <!-- Dashboard Container -->
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    {% include 'sidebar.html' %}
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="dashboard-header">
+        <h1>Welcome Back, Admin!</h1>
+        <div class="header-actions">
+          <div class="user-profile">
+            <a href="{{ url_for('profile') }}">
+              <img src="{{ user.profile_picture or url_for('static', filename='assets/user-avatar.png') }}" alt="Avatar">
+              <span>{{ user.username }}</span>
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <!-- User Overview -->
+      <section class="task-overview">
+        <div class="overview-card">
+          <h3>Total Users</h3>
+          <p>{{ total_users }}</p>
+          <small>All registered users</small>
+        </div>
+        <div class="overview-card">
+          <h3>Total Tasks</h3>
+          <p>{{ total_tasks }}</p>
+          <small>All tasks created</small>
+        </div>
+        <div class="overview-card">
+          <h3>Completed Tasks</h3>
+          <p>{{ completed_tasks }}</p>
+          <small>Tasks completed</small>
+        </div>
+        <div class="overview-card">
+          <h3>Pending Tasks</h3>
+          <p>{{ pending_tasks }}</p>
+          <small>Tasks pending</small>
+        </div>
+      </section>
+
+      <!-- Links to Management Pages -->
+      <section class="management-links">
+        <h2>Management Pages</h2>
+        <div class="management-cards">
+          <a href="{{ url_for('admin.manage_users') }}" class="management-card">
+            <i class="fas fa-users"></i>
+            <span>Manage Users</span>
+          </a>
+          <a href="{{ url_for('admin.manage_tasks') }}" class="management-card">
+            <i class="fas fa-tasks"></i>
+            <span>Manage Tasks</span>
+          </a>
+          <a href="{{ url_for('admin.feedback') }}" class="management-card">
+            <i class="fas fa-comments"></i>
+            <span>Manage Feedback</span>
+          </a>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+      let flashMessages = document.querySelectorAll(".flash");
+      flashMessages.forEach(function (flash) {
+        flash.style.transition = "opacity 0.5s ease";
+        flash.style.opacity = "0";
+        setTimeout(() => flash.remove(), 500);
+      });
+    }, 2000);
+  });
+</script>
+</html>

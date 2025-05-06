@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center mb-0">Login</h2>
+                </div>
+                <div class="card-body">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="mb-3">
+                            {{ form.username.label(class="form-label") }}
+                            {% if form.username.errors %}
+                                {{ form.username(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.username.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.username(class="form-control") }}
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.password.label(class="form-label") }}
+                            {% if form.password.errors %}
+                                {{ form.password(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.password(class="form-control") }}
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="user-type-container">
+                                <label class="user-type-option {% if form.user_type.data == 'user' %}selected{% endif %}">
+                                    <input type="radio" name="user_type" value="user" {% if form.user_type.data == 'user' %}checked{% endif %}>
+                                    <span>Regular User</span>
+                                </label>
+                                <label class="user-type-option {% if form.user_type.data == 'admin' %}selected{% endif %}">
+                                    <input type="radio" name="user_type" value="admin" {% if form.user_type.data == 'admin' %}checked{% endif %}>
+                                    <span>Administrator</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <p class="mb-0">Don't have an account? <a href="{{ url_for('signup') }}">Register here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .user-type-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .user-type-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .user-type-option:hover {
+        border-color: #0072ff;
+        background-color: #f0f7ff;
+    }
+
+    .user-type-option input[type="radio"] {
+        margin: 0;
+    }
+
+    .user-type-option.selected {
+        border-color: #0072ff;
+        background-color: #f0f7ff;
+    }
+</style>
+
+<script>
+    // Add visual feedback for selected user type
+    const userTypeOptions = document.querySelectorAll('.user-type-option');
+    userTypeOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            userTypeOptions.forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+        });
+    });
+</script>
+{% endblock %}
