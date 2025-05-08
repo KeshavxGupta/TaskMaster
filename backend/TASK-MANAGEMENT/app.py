@@ -11,8 +11,10 @@ from datetime import datetime
 import os
 from werkzeug.utils import secure_filename
 import requests
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir, "data.sqlite")

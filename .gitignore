@@ -20,6 +20,8 @@ Thumbs.db
 
 # SQLite database files
 *.db
+*.sqlite3
+*.sqlite
 
 # Instance and media folders (Django/Flask)
 instance/
